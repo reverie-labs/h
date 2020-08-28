@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import newrelic.agent
 from pyramid import httpexceptions
 from webob.multidict import MultiDict
 
@@ -30,7 +31,10 @@ def badge(request):
     those pages. The Chrome extension is oblivious to this, we just tell it
     that there are 0 annotations.
 
+    NewRelic APM has been disabled for this function.
+
     """
+    newrelic.agent.ignore_transaction(flag=True)
     uri = request.params.get("uri")
 
     if not uri:
